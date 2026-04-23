@@ -385,7 +385,7 @@ function loginGoogle(){
   // Usar OAuth2 redirect flow (compatible con FedCM y todos los navegadores)
   const params = new URLSearchParams({
     client_id: GOOGLE_CLIENT_ID,
-    redirect_uri: window.location.origin + '/pages/login.html',
+    redirect_uri: window.location.origin + '/importax/frontend/pages/login.html',
     response_type: 'token id_token',
     scope: 'openid email profile',
     nonce: Math.random().toString(36).substr(2),
