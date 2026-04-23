@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ImportaX — Registro de Proveedor</title>
+  <link rel="stylesheet" href="../css/proveedor.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav-simple">
+  <a href="tienda.html" class="nav-logo">🏪 <strong>ImportaX</strong></a>
+  <a href="panel-proveedor.html" class="btn-login">Ya tengo cuenta →</a>
+</nav>
+
+<!-- REGISTRO FORM -->
+<div class="registro-layout">
+  
+  <!-- LEFT INFO PANEL -->
+  <div class="info-panel">
+    <div class="info-content">
+      <div class="info-badge">🚀 Únete a +340 proveedores activos</div>
+      <h1>Vende en el<br>marketplace<br><span>más grande</span><br>del Perú</h1>
+      <p>Registra tu empresa, sube tus productos y empieza a vender hoy mismo. Todo sincronizado con Odoo ERP.</p>
+      <div class="benefits-list">
+        <div class="benefit-item">✓ Sin costo de registro</div>
+        <div class="benefit-item">✓ Panel de control completo</div>
+        <div class="benefit-item">✓ Sincronización automática con Odoo</div>
+        <div class="benefit-item">✓ Pagos cada 30 días</div>
+        <div class="benefit-item">✓ Soporte 24/7 por WhatsApp</div>
+        <div class="benefit-item">✓ Facturación electrónica SUNAT</div>
+      </div>
+      <div class="testimonial">
+        <div class="t-text">"En 2 semanas ya tenía mis primeras ventas en el marketplace"</div>
+        <div class="t-author">— TechStar Electronics, Proveedor desde 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="form-panel">
+    <div class="form-card">
+      <div class="form-header">
+        <h2>Crear cuenta de proveedor</h2>
+        <p>Completa el formulario y empieza a vender</p>
+      </div>
+
+      <!-- STEP INDICATOR -->
+      <div class="steps">
+        <div class="step active" id="step-1-ind">
+          <div class="step-num">1</div>
+          <div class="step-lbl">Empresa</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-2-ind">
+          <div class="step-num">2</div>
+          <div class="step-lbl">Contacto</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-3-ind">
+          <div class="step-num">3</div>
+          <div class="step-lbl">Listo</div>
+        </div>
+      </div>
+
+      <form id="registro-form">
+        <!-- STEP 1: Empresa -->
+        <div class="form-step active" id="form-step-1">
+          <div class="form-group">
+            <label>Razón social *</label>
+            <input type="text" id="razon_social" placeholder="Ej: TechCorp International S.A.C." required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>RUC / Tax ID *</label>
+              <input type="text" id="ruc" placeholder="20XXXXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label>País de origen *</label>
+              <select id="pais" required>
+                <option value="">Seleccionar...</option>
+                <option value="PE">🇵🇪 Perú</option>
+                <option value="CN">🇨🇳 China</option>
+                <option value="US">🇺🇸 EE.UU.</option>
+                <option value="TW">🇹🇼 Taiwan</option>
+                <option value="JP">🇯🇵 Japón</option>
+                <option value="KR">🇰🇷 Corea del Sur</option>
+                <option value="OTHER">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Categorías de productos *</label>
+            <div class="checkbox-grid">
+              <label><input type="checkbox" value="elec"> 📱 Electrónica</label>
+              <label><input type="checkbox" value="ropa"> 👕 Ropa</label>
+              <label><input type="checkbox" value="hogar"> 🏠 Hogar</label>
+              <label><input type="checkbox" value="dep"> ⚽ Deportes</label>
+              <label><input type="checkbox" value="bell"> 🧴 Belleza</label>
+              <label><input type="checkbox" value="ali"> 🍎 Alimentos</label>
+              <label><input type="checkbox" value="herr"> 🔧 Herramientas</label>
+              <label><input type="checkbox" value="otros"> 📦 Otros</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Sitio web</label>
+            <input type="url" id="website" placeholder="https://www.tuempresa.com">
+          </div>
+          <button type="button" class="btn-next" onclick="siguientePaso()">Continuar →</button>
+        </div>
+
+        <!-- STEP 2: Contacto -->
+        <div class="form-step" id="form-step-2">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre *</label>
+              <input type="text" id="nombre" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label>Apellido *</label>
+              <input type="text" id="apellido" placeholder="Tu apellido" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Correo electrónico *</label>
+            <input type="email" id="email" placeholder="tu@empresa.com" required>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp de contacto *</label>
+            <input type="tel" id="whatsapp" placeholder="+51 999 000 111" required>
+          </div>
+          <div class="form-group">
+            <label>Contraseña *</label>
+            <input type="password" id="password" placeholder="Mínimo 8 caracteres" required>
+          </div>
+          <div class="form-group">
+            <label>Confirmar contraseña *</label>
+            <input type="password" id="password2" placeholder="Repite tu contraseña" required>
+          </div>
+          <div class="form-group">
+            <label class="check-label">
+              <input type="checkbox" id="terminos" required>
+              Acepto los <a href="#">Términos y Condiciones</a> y la <a href="#">Política de Privacidad</a>
+            </label>
+          </div>
+          <div class="form-btns">
+            <button type="button" class="btn-back" onclick="anteriorPaso()">← Atrás</button>
+            <button type="button" class="btn-next" onclick="registrar()">Crear cuenta</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Éxito -->
+        <div class="form-step" id="form-step-3">
+          <div class="success-screen">
+            <div class="success-icon">🎉</div>
+            <h3>¡Cuenta creada exitosamente!</h3>
+            <p>Tu solicitud está siendo revisada. Te notificaremos por WhatsApp y correo en las próximas 24 horas.</p>
+            <div class="next-steps">
+              <div class="ns-item">1. Revisa tu correo para confirmar tu cuenta</div>
+              <div class="ns-item">2. Nuestro equipo verificará tu empresa</div>
+              <div class="ns-item">3. Empieza a subir tus productos</div>
+            </div>
+            <a href="panel-proveedor.html" class="btn-next" style="display:inline-block;text-decoration:none;text-align:center">Ir a mi panel →</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="../js/registro-proveedor.js"></script>
+<script src="../js/odoo-api.js"></script>
+</body>
+</html>

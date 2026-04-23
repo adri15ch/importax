@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ImportaX — Panel del Proveedor</title>
+  <link rel="stylesheet" href="../css/panel.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="panel-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="s-icon">🏪</span>
+      <div>
+        <div class="s-name">ImportaX</div>
+        <div class="s-role">Panel Proveedor</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">Principal</div>
+      <a class="nav-link active" onclick="mostrarPanel('dashboard')" href="#">
+        <span>▦</span> Dashboard
+      </a>
+
+      <div class="nav-section">Mis Productos</div>
+      <a class="nav-link" onclick="mostrarPanel('catalogo')" href="#">
+        <span>📦</span> Catálogo
+      </a>
+      <a class="nav-link" onclick="mostrarPanel('agregar')" href="#">
+        <span>➕</span> Agregar producto
+      </a>
+
+      <div class="nav-section">Ventas</div>
+      <a class="nav-link" onclick="mostrarPanel('pedidos')" href="#">
+        <span>📋</span> Mis pedidos
+        <span class="nav-badge" id="badge-pedidos">5</span>
+      </a>
+      <a class="nav-link" onclick="mostrarPanel('pagos')" href="#">
+        <span>💰</span> Pagos
+      </a>
+
+      <div class="nav-section">Configuración</div>
+      <a class="nav-link" onclick="mostrarPanel('odoo')" href="#">
+        <span>⚙️</span> Conectar Odoo
+      </a>
+      <a class="nav-link" onclick="mostrarPanel('whatsapp')" href="#">
+        <span>💬</span> WhatsApp IA
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">IX</div>
+        <div>
+          <div class="user-name">Importadora X</div>
+          <div class="user-role">Proveedor verificado ✓</div>
+        </div>
+      </div>
+      <a href="tienda.html" class="btn-store">Ver tienda →</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="panel-main">
+    <header class="panel-topbar">
+      <div>
+        <h1 class="page-title" id="page-title">Dashboard</h1>
+        <p class="page-breadcrumb" id="page-bc">Inicio / Dashboard</p>
+      </div>
+      <div class="topbar-actions">
+        <span class="date-badge">Mié 22 Abr 2026</span>
+        <button class="btn-primary" onclick="mostrarPanel('agregar')">+ Nuevo producto</button>
+      </div>
+    </header>
+
+    <div class="panel-content">
+
+      <!-- ===== DASHBOARD ===== -->
+      <div class="panel-page active" id="panel-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-label">Ventas del mes</div>
+            <div class="kpi-value" id="kpi-ventas">Cargando...</div>
+            <div class="kpi-change up">↑ 18% vs mes anterior</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-icon">📋</div>
+            <div class="kpi-label">Pedidos nuevos</div>
+            <div class="kpi-value" id="kpi-pedidos">Cargando...</div>
+            <div class="kpi-change up">↑ 5 hoy</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-label">Productos activos</div>
+            <div class="kpi-value" id="kpi-productos">Cargando...</div>
+            <div class="kpi-change neutral">3 sin stock</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-icon">⭐</div>
+            <div class="kpi-label">Calificación</div>
+            <div class="kpi-value">4.8</div>
+            <div class="kpi-change up">↑ Excelente</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>Últimos pedidos</h3>
+                <p>Sincronizados con Odoo en tiempo real</p>
+              </div>
+              <span class="badge badge-orange">5 nuevos</span>
+            </div>
+            <table class="data-table" id="tabla-pedidos-dash">
+              <thead><tr><th>Pedido</th><th>Cliente</th><th>Total</th><th>Estado</th></tr></thead>
+              <tbody id="pedidos-dash-body">
+                <tr><td colspan="4" class="loading-row">Cargando desde Odoo...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Productos más vendidos</h3>
+              <button class="btn-outline" onclick="mostrarPanel('catalogo')">Ver todos</button>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Producto</th><th>Vendidos</th><th>Stock</th></tr></thead>
+              <tbody id="top-productos-body">
+                <tr><td colspan="3" class="loading-row">Cargando desde Odoo...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Resumen financiero — Abril 2026</h3></div>
+          <div class="finance-grid">
+            <div class="finance-item">
+              <div class="fi-val" id="fi-bruto">S/ 0</div>
+              <div class="fi-lbl">Ventas brutas</div>
+            </div>
+            <div class="finance-item danger">
+              <div class="fi-val">-S/ 0</div>
+              <div class="fi-lbl">Comisión marketplace (10%)</div>
+            </div>
+            <div class="finance-item success">
+              <div class="fi-val" id="fi-neto">S/ 0</div>
+              <div class="fi-lbl">Neto a recibir</div>
+            </div>
+            <div class="finance-item info">
+              <div class="fi-val">30/04/26</div>
+              <div class="fi-lbl">Fecha próximo pago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CATÁLOGO ===== -->
+      <div class="panel-page" id="panel-catalogo">
+        <div class="card">
+          <div class="card-header">
+            <h3>Mis productos publicados</h3>
+            <button class="btn-primary" onclick="mostrarPanel('agregar')">+ Agregar producto</button>
+          </div>
+          <div class="table-toolbar">
+            <input type="text" class="search-table" placeholder="Buscar producto..." oninput="filtrarCatalogo(this.value)">
+            <select class="filter-select" onchange="filtrarEstado(this.value)">
+              <option value="">Todos los estados</option>
+              <option value="published">Publicado</option>
+              <option value="draft">Borrador</option>
+              <option value="low_stock">Stock bajo</option>
+            </select>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Ventas</th><th>Estado</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="catalogo-body">
+              <tr><td colspan="7" class="loading-row">Cargando productos desde Odoo...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== AGREGAR PRODUCTO ===== -->
+      <div class="panel-page" id="panel-agregar">
+        <form id="form-producto" onsubmit="publicarProducto(event)">
+          <div class="two-col">
+            <div>
+              <div class="card">
+                <div class="card-header"><h3>Información del producto</h3></div>
+                <div class="form-group">
+                  <label>Nombre del producto *</label>
+                  <input type="text" id="prod-nombre" placeholder="Ej: Monitor Samsung 27 pulgadas FHD" required>
+                </div>
+                <div class="form-group">
+                  <label>Categoría *</label>
+                  <select id="prod-categoria" required>
+                    <option value="">Seleccionar categoría...</option>
+                    <option value="elec">📱 Electrónica</option>
+                    <option value="ropa">👕 Ropa y Accesorios</option>
+                    <option value="hogar">🏠 Hogar y Jardín</option>
+                    <option value="dep">⚽ Deportes</option>
+                    <option value="bell">🧴 Belleza y Salud</option>
+                    <option value="ali">🍎 Alimentos</option>
+                    <option value="otros">📦 Otros</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Descripción</label>
+                  <textarea id="prod-desc" rows="4" placeholder="Describe las características, especificaciones y ventajas del producto..."></textarea>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Precio de venta (S/) *</label>
+                    <input type="number" id="prod-precio" step="0.01" min="0" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Precio original (tachado)</label>
+                    <input type="number" id="prod-precio-orig" step="0.01" min="0">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Stock disponible *</label>
+                    <input type="number" id="prod-stock" min="0" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Stock mínimo (alerta)</label>
+                    <input type="number" id="prod-stock-min" min="0" value="5">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>SKU / Código interno</label>
+                  <input type="text" id="prod-sku" placeholder="Ej: MON-24-FHD-001">
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card">
+                <div class="card-header"><h3>Imágenes del producto</h3></div>
+                <div class="upload-zone" onclick="document.getElementById('img-upload').click()">
+                  <div class="uz-icon">📸</div>
+                  <div class="uz-title">Arrastra fotos aquí</div>
+                  <div class="uz-sub">JPG, PNG hasta 5MB. Mínimo 800×800px</div>
+                  <button type="button" class="btn-outline">Seleccionar archivos</button>
+                  <input type="file" id="img-upload" multiple accept="image/*" style="display:none" onchange="previsualizarImagenes(this)">
+                </div>
+                <div id="image-preview" class="image-preview-grid"></div>
+              </div>
+              <div class="card">
+                <div class="card-header"><h3>Logística y envío</h3></div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Peso (kg)</label>
+                    <input type="number" id="prod-peso" step="0.1" min="0" value="0.5">
+                  </div>
+                  <div class="form-group">
+                    <label>Dimensiones (cm)</label>
+                    <input type="text" id="prod-dims" placeholder="L × A × H">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Tiempo de entrega estimado</label>
+                  <select id="prod-entrega">
+                    <option value="1-2">1-2 días hábiles</option>
+                    <option value="3-5">3-5 días hábiles</option>
+                    <option value="same">Mismo día (Lima)</option>
+                    <option value="7-10">7-10 días hábiles</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="check-label">
+                    <input type="checkbox" id="prod-envio-gratis">
+                    Incluir envío gratis para este producto
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-outline" onclick="guardarBorrador()">Guardar borrador</button>
+            <button type="submit" class="btn-primary">🚀 Publicar en marketplace</button>
+          </div>
+        </form>
+        <div id="prod-result" style="display:none" class="result-banner"></div>
+      </div>
+
+      <!-- ===== PEDIDOS ===== -->
+      <div class="panel-page" id="panel-pedidos">
+        <div class="card">
+          <div class="card-header">
+            <h3>Mis pedidos recibidos</h3>
+            <div style="display:flex;gap:8px">
+              <select class="filter-select" onchange="filtrarPedidos(this.value)">
+                <option value="">Todos los estados</option>
+                <option value="new">Nuevos</option>
+                <option value="processing">En proceso</option>
+                <option value="shipped">Enviados</option>
+                <option value="delivered">Entregados</option>
+              </select>
+              <button class="btn-outline" onclick="exportarPedidos()">📊 Exportar Excel</button>
+            </div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr><th>#Pedido</th><th>Fecha</th><th>Cliente</th><th>Producto</th><th>Cant.</th><th>Total</th><th>Estado</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="pedidos-body">
+              <tr><td colspan="8" class="loading-row">Cargando pedidos desde Odoo...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== PAGOS ===== -->
+      <div class="panel-page" id="panel-pagos">
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header"><h3>Próximo pago</h3></div>
+            <div class="payment-highlight">
+              <div class="ph-label">Monto a recibir el 30/04/2026</div>
+              <div class="ph-amount" id="ph-amount">S/ 0.00</div>
+              <div class="ph-detail">Calculado automáticamente desde Odoo</div>
+            </div>
+            <div class="form-group">
+              <label>Cuenta bancaria destino</label>
+              <input type="text" id="cuenta-banco" placeholder="BCP — Cta. 191-XXXXXXXX-0-23">
+            </div>
+            <div class="form-group">
+              <label>CCI (Código de Cuenta Interbancario)</label>
+              <input type="text" id="cci" placeholder="002191XXXXXXXXXXXX23">
+            </div>
+            <button class="btn-primary" onclick="guardarCuenta()">Guardar datos bancarios</button>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Historial de pagos</h3></div>
+            <table class="data-table">
+              <thead><tr><th>Fecha</th><th>Período</th><th>Monto</th><th>Estado</th></tr></thead>
+              <tbody id="pagos-body">
+                <tr><td colspan="4" class="loading-row">Cargando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ODOO CONEXIÓN ===== -->
+      <div class="panel-page" id="panel-odoo">
+        <div class="odoo-banner">
+          <div class="ob-icon">⚙️</div>
+          <div>
+            <div class="ob-title">Conectar con Odoo 17 ERP</div>
+            <div class="ob-sub">Sincroniza tu inventario, pedidos y facturación automáticamente en tiempo real</div>
+          </div>
+          <div class="ob-status" id="odoo-status-badge">● Desconectado</div>
+        </div>
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header"><h3>Credenciales de conexión</h3></div>
+            <div class="form-group">
+              <label>URL del servidor Odoo *</label>
+              <input type="text" id="odoo-url" placeholder="http://localhost:8069" value="http://localhost:8069">
+              <small>Usa la URL donde tienes Odoo corriendo</small>
+            </div>
+            <div class="form-group">
+              <label>Base de datos *</label>
+              <input type="text" id="odoo-db" placeholder="importadorax" value="importadorax">
+            </div>
+            <div class="form-group">
+              <label>Usuario API *</label>
+              <input type="text" id="odoo-user" placeholder="admin@importadorax.com">
+            </div>
+            <div class="form-group">
+              <label>Contraseña / API Key *</label>
+              <input type="password" id="odoo-pass" placeholder="••••••••••••">
+            </div>
+            <div class="form-actions">
+              <button class="btn-outline" onclick="probarConexionOdoo()">🔌 Probar conexión</button>
+              <button class="btn-primary" onclick="guardarConexionOdoo()">✅ Guardar y conectar</button>
+            </div>
+            <div id="odoo-test-result" style="display:none" class="result-banner"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Módulos sincronizados</h3></div>
+            <div class="sync-list">
+              <div class="sync-item" id="sync-products">
+                <span>📦 Productos y catálogo (product.template)</span>
+                <span class="badge badge-gray">Pendiente</span>
+              </div>
+              <div class="sync-item" id="sync-inventory">
+                <span>📊 Inventario y kardex (stock.move.line)</span>
+                <span class="badge badge-gray">Pendiente</span>
+              </div>
+              <div class="sync-item" id="sync-orders">
+                <span>📋 Órdenes de venta (sale.order)</span>
+                <span class="badge badge-gray">Pendiente</span>
+              </div>
+              <div class="sync-item" id="sync-invoices">
+                <span>🧾 Facturas SUNAT (account.move)</span>
+                <span class="badge badge-gray">Pendiente</span>
+              </div>
+              <div class="sync-item" id="sync-partners">
+                <span>👥 Clientes y proveedores (res.partner)</span>
+                <span class="badge badge-gray">Pendiente</span>
+              </div>
+            </div>
+            <button class="btn-primary" style="width:100%;margin-top:12px" onclick="sincronizarTodo()">🔄 Sincronizar ahora</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== WHATSAPP IA ===== -->
+      <div class="panel-page" id="panel-whatsapp">
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header"><h3>Configuración WhatsApp IA</h3></div>
+            <div class="form-group">
+              <label>API Key de 360dialog</label>
+              <input type="text" id="wa-apikey" placeholder="Tu API Key de 360dialog">
+            </div>
+            <div class="form-group">
+              <label>Número de WhatsApp Business</label>
+              <input type="text" id="wa-number" placeholder="+51 999 000 111">
+            </div>
+            <div class="form-group">
+              <label>Nombre del asistente IA</label>
+              <input type="text" id="wa-nombre" value="Max" placeholder="Ej: Max, Luna, Alex...">
+            </div>
+            <div class="form-group">
+              <label>API Key de Claude (Anthropic)</label>
+              <input type="password" id="claude-key" placeholder="sk-ant-api03-...">
+              <small>Obtenla en <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></small>
+            </div>
+            <button class="btn-primary" onclick="guardarWhatsApp()">Activar asistente IA</button>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Estadísticas del bot hoy</h3></div>
+            <div class="stats-grid">
+              <div class="stat-box"><div class="stat-val">128</div><div class="stat-lbl">Mensajes recibidos</div></div>
+              <div class="stat-box success"><div class="stat-val">89%</div><div class="stat-lbl">Resueltos por IA</div></div>
+              <div class="stat-box"><div class="stat-val">14</div><div class="stat-lbl">Escalados a humano</div></div>
+              <div class="stat-box info"><div class="stat-val">4 seg</div><div class="stat-lbl">Respuesta promedio</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="../js/odoo-api.js"></script>
+<script src="../js/panel-proveedor.js"></script>
+</body>
+</html>
